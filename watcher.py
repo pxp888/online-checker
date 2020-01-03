@@ -5,8 +5,6 @@ import datetime
 import pytz
 
 def human(t):
-    # lt = time.localtime(t)
-    # n = str(lt[0]) + '-'+ str(lt[1]) +'-'+ str(lt[2]) + ' ' + str(lt[3]) + ':' + str(lt[4])
     a = datetime.datetime.fromtimestamp(t)
     b = a.astimezone(pytz.timezone("Asia/Manila"))
     n = b.strftime("%y-%m-%d %H:%M")
