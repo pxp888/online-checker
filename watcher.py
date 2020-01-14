@@ -5,6 +5,8 @@ import datetime
 import pytz
 
 def human(t):
+    # lt = time.localtime(t)
+    # n = str(lt[0]) + '-'+ str(lt[1]) +'-'+ str(lt[2]) + ' ' + str(lt[3]) + ':' + str(lt[4])
     a = datetime.datetime.fromtimestamp(t)
     b = a.astimezone(pytz.timezone("Asia/Manila"))
     n = b.strftime("%y-%m-%d %H:%M")
@@ -25,7 +27,8 @@ class serv(threading.Thread):
 
         while True:
             data, addr = self.sock.recvfrom(1024)
-            # print('recv : ',data)
+            data = data.decode('utf-8')
+#            print('recv : ',data)
             lock.acquire()
             if data in lc:
                 t = time.time() - lc[data]
@@ -55,7 +58,7 @@ class thing(threading.Thread):
             for i in lc:
                 t = time.time() - lc[i]
                 if t > cut:
-                    n = n + str(i) + human(lc[i]) + '\n'
+                    n = n + str(i) +'  ' + human(lc[i]) + '\n'
                     #print('miss',i,human(lc[i]))
                 else:
                     onlinea = onlinea + str(i) + ', '
